@@ -30,7 +30,8 @@ def setup():
 	GPIO.setup(Rpin, GPIO.OUT)     # Set Red Led Pin mode to output
 	GPIO.setup(BtnPin, GPIO.IN, pull_up_down=GPIO.PUD_UP)    # Set BtnPin's mode is input, and pull up to high level(3.3V)
 	GPIO.setup(VibPin, GPIO.OUT)
-	GPIO.add_event_detect(BtnPin, GPIO.BOTH, callback=detect, bouncetime= 100)
+#	GPIO.add_event_detect(BtnPin, GPIO.BOTH, callback=detect, bouncetime= 100)
+	GPIO.add_event_detect(BtnPin, GPIO.FALLING, callback=detect, bouncetime=100)
 
 def Alarm(x):
 	global buzzing
@@ -61,8 +62,6 @@ def detect(chn):
 		Alarm(x)
 		press_count = []
 	#print("out")
-	
-
 
 def read_rom():
     name_file=device_folder+'/name'
@@ -100,6 +99,7 @@ def checkTemp():
 def loop():
 	while True:
 		checkTemp()
+		#time.sleep(0.02)
 		pass
 
 def destroy():
